@@ -1,0 +1,22 @@
+#Vs code
+.vs/
+.vscode/
+
+#Angular and node modules
+.angular/
+node_modules/
+
+#Files
+*.config
+*.conf
+.gitattributes
+.gitignore
+README.md
+.editorconfig
+.eslintrc.json
+.eslintrc
+.mocharc.jsonc
+.npmrc
+package.json
+package-lock.json
+*.conf.js

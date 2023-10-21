@@ -1,0 +1,29 @@
+services:
+    simple-front:
+        container_name: simple-front
+        build:
+            dockerfile: SimpleFront/Dockerfile
+        ports:
+            - 4200:80
+
+    simple-back:
+        container_name: simple-back
+        build:
+            dockerfile: SimpleBack/Dockerfile
+        ports:
+            - 3000:3000
+
+    simple-listener:
+        container_name: simple-listener
+        build:
+            dockerfile: SimpleListener/Dockerfile
+        ports:
+            - 3001:3001
+
+    mongo:
+        container_name: mongo
+        image: mongo:7.0.2
+
+    redis:
+        container_name: redis
+        image: redis:7.2.2-alpine
