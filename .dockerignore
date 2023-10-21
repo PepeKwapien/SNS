@@ -1,0 +1,14 @@
+# Ignore development and build files within the SimpleBack directory
+*/node_modules
+*/npm-debug.log
+*/.git
+*/.gitignore
+*/.env
+
+# Ignore editor and IDE files within the SimpleBack directory
+*/.vscode
+*/.idea
+
+# Ignore Docker-related files within the SimpleBack directory
+*/Dockerfile
+*/.dockerignore
