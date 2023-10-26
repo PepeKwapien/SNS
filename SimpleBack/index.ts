@@ -1,7 +1,10 @@
 import express, { Express, Request, Response } from 'express';
+import dotenv from 'dotenv';
 
-const hostname: string = process.env.HOSTNAME ?? 'localhost';
-const port: number = +(process.env.PORT ?? 3000);
+dotenv.config();
+
+const hostname: string = process.env.HOSTNAME;
+const port: number = process.env.PORT;
 
 const app: Express = express();
 
