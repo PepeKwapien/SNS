@@ -4,6 +4,7 @@
 */.git
 */.gitignore
 */.env
+*/dist
 
 # Ignore editor and IDE files within the SimpleBack directory
 */.vscode
