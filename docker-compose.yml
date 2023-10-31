@@ -17,12 +17,12 @@ services:
             - HOSTNAME=0.0.0.0
             - MONGODB_URL=mongodb://root:example@mongo:27017/
 
-    # simple-listener:
-    #     container_name: simple-listener
-    #     build:
-    #         dockerfile: SimpleListener/Dockerfile
-    #     ports:
-    #         - 3001:3001
+    simple-listener:
+        container_name: simple-listener
+        build:
+            dockerfile: SimpleListener/Dockerfile
+        ports:
+            - 3001:3001
 
     mongo:
         container_name: mongodb
