@@ -1,15 +1,14 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { dbConnection } from './src/db/db-connection.js';
 import { taskController } from './src/controller/task-controller.js';
+import { taskQueue } from './src/queue/task-queue.js';
 
 dotenv.config();
 
-const mongoUri: string = process.env.MONGODB_URL;
 const hostname: string = process.env.HOSTNAME;
 const port: number = process.env.PORT;
 
-await dbConnection(mongoUri);
+await taskQueue().add(undefined, { repeat: { cron: '* * * * *' } });
 
 const app: Express = express();
 

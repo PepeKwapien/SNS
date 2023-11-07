@@ -1,8 +1,13 @@
 import mongoose from 'mongoose';
-import { taskModel } from './task.js';
 
-export const dbConnection = async (mongoUri: string) => {
-    const dbConnection: mongoose.Connection = mongoose.connection;
+let dbConnection: mongoose.Connection;
+
+export const connectToDatabase = async (mongoUri: string) => {
+    if (dbConnection) {
+        return dbConnection;
+    }
+
+    dbConnection = mongoose.connection;
 
     dbConnection.on('error', (err) => {
         console.error(`MongoDB connection error: ${err}`);
@@ -10,16 +15,14 @@ export const dbConnection = async (mongoUri: string) => {
 
     dbConnection.once('open', async () => {
         console.log('Connected to MongoDB');
+    });
 
-        const task = new taskModel({ title: 'Connecting Mongo', description: 'Trying it out', dueDate: Date.now() });
-        await task.save();
-        console.log('One entry added');
-        console.log(await taskModel.find({}));
+    dbConnection.on('close', async () => {
+        console.log('Bye, have a wonderful time!');
     });
 
     try {
         await mongoose.connect(mongoUri);
-        console.log('MongoDB connected');
     } catch (error) {
         console.log(error);
     }
