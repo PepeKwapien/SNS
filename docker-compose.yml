@@ -16,6 +16,8 @@ services:
             - PORT=3000
             - HOSTNAME=0.0.0.0
             - MONGODB_URL=mongodb://root:example@mongo:27017/
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
 
     simple-listener:
         container_name: simple-listener
