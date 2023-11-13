@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { taskController } from './src/controller/task-controller.js';
-import { taskQueue } from './src/queue/task-queue.js';
+import { taskController } from './controller/task-controller.js';
+import { taskQueue } from './queue/task-queue.js';
 
 dotenv.config();
 

@@ -1,0 +1,49 @@
+services:
+    simple-front:
+        container_name: simple-front
+        build:
+            dockerfile: SimpleFront/Dockerfile
+        ports:
+            - 4200:80
+
+    simple-back:
+        container_name: simple-back
+        build:
+            dockerfile: SimpleBack/Dockerfile.dev
+        ports:
+            - 3000:3000
+        environment:
+            - PORT=3000
+            - HOSTNAME=0.0.0.0
+            - MONGODB_URL=mongodb://root:example@mongo:27017/
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+        volumes:
+            - ./SimpleBack/src:/app/src
+
+    simple-listener:
+        container_name: simple-listener
+        build:
+            dockerfile: SimpleListener/Dockerfile
+        ports:
+            - 3001:3001
+
+    mongo:
+        container_name: mongodb
+        image: mongo:7.0.2
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+
+    mongo-express:
+        container_name: mongo-express
+        image: mongo-express
+        restart: always
+        ports:
+            - 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+
+    redis:
+        container_name: redis
+        image: redis:7.2.2-alpine

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { taskModel } from '../db/task.js';
 import { TaskDto } from '../dto/task-dto.js';
 import dotenv from 'dotenv';
-import { connectToDatabaseMiddleware } from '../../middleware/db-connection-middleware.js';
+import { connectToDatabaseMiddleware } from '../middleware/db-connection-middleware.js';
 
 dotenv.config();
 

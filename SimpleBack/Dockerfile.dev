@@ -1,0 +1,11 @@
+FROM node:18-alpine as build
+
+WORKDIR /app
+
+COPY SimpleBack/package*.json ./
+
+RUN npm ci
+
+COPY SimpleBack/ ./
+
+CMD [ "npm", "run", "dev" ]

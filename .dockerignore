@@ -11,5 +11,5 @@
 */.idea
 
 # Ignore Docker-related files within the SimpleBack directory
-*/Dockerfile
+*/Dockerfile*
 */.dockerignore
