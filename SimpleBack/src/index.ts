@@ -1,14 +1,14 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { taskController } from './controller/task-controller.js';
-import { taskQueue } from './queue/task-queue.js';
+import { overdueQueue } from './queue/task-queue.js';
 
 dotenv.config();
 
 const hostname: string = process.env.HOSTNAME;
 const port: number = process.env.PORT;
 
-await taskQueue().add(undefined, { repeat: { cron: '* * * * *' } });
+await overdueQueue().add(undefined, { repeat: { cron: '* * * * *' } });
 
 const app: Express = express();
 

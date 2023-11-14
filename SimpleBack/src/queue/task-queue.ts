@@ -9,29 +9,35 @@ const host: string = process.env.REDIS_HOST;
 const port: number = process.env.REDIS_PORT;
 const mongoUri: string = process.env.MONGODB_URL;
 
-let _taskQueue: Bull.Queue;
+let _overdueQueue: Bull.Queue;
 
-export const taskQueue: () => Bull.Queue = () => {
-    if (!_taskQueue === undefined) {
-        return _taskQueue;
+export const overdueQueue: () => Bull.Queue = () => {
+    if (!_overdueQueue === undefined) {
+        return _overdueQueue;
     }
 
     try {
-        _taskQueue = new Bull('task', {
+        _overdueQueue = new Bull('task', {
             redis: {
                 host,
                 port
             }
         });
     } catch (error) {
-        console.error(`Issue when creating a task queue: ${error}`);
+        console.error(`Issue when creating an overdue queue: ${error}`);
     }
 
-    _taskQueue.process(async (job) => {
+    _overdueQueue.process(async (job) => {
         await connectToDatabase(mongoUri);
         const allTasks = await taskModel.find({});
-        console.log(`Job processed at ${Date.now()}. Found tasks: ${allTasks.length}`);
+        const expiredTasks = await taskModel.find({ overdueNoticeSent: false }).where('dueDate').lte(Date.now());
+        console.log(`Job processed at ${Date.now()}. Found tasks: ${allTasks.length}. Expired tasks: ${expiredTasks.length}`);
+        const updateResult = await taskModel.updateMany(
+            { _id: { $in: expiredTasks.map((task) => task._id) } },
+            { $set: { overdueNoticeSent: true } }
+        );
+        console.log(`Updated ${updateResult.modifiedCount} tasks`);
     });
 
-    return _taskQueue;
+    return _overdueQueue;
 };
