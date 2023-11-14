@@ -1,7 +1,9 @@
 import Bull from 'bull';
-import { taskModel } from '../db/task.js';
+import { Tasks } from '../db/task.js';
 import dotenv from 'dotenv';
 import { connectToDatabase } from '../db/db-connection.js';
+import amqp from 'amqplib';
+import { sendObject } from '../broker/broker.js';
 
 dotenv.config();
 
@@ -29,10 +31,16 @@ export const overdueQueue: () => Bull.Queue = () => {
 
     _overdueQueue.process(async (job) => {
         await connectToDatabase(mongoUri);
-        const allTasks = await taskModel.find({});
-        const expiredTasks = await taskModel.find({ overdueNoticeSent: false }).where('dueDate').lte(Date.now());
+        const allTasks = await Tasks.find({});
+        const expiredTasks = await Tasks.find({ overdueNoticeSent: false }).where('dueDate').lte(Date.now());
         console.log(`Job processed at ${Date.now()}. Found tasks: ${allTasks.length}. Expired tasks: ${expiredTasks.length}`);
-        const updateResult = await taskModel.updateMany(
+
+        for (const expiredTask of expiredTasks) {
+            console.log(`Sending object ${expiredTask} to message broker`);
+            await sendObject(expiredTask);
+        }
+
+        const updateResult = await Tasks.updateMany(
             { _id: { $in: expiredTasks.map((task) => task._id) } },
             { $set: { overdueNoticeSent: true } }
         );

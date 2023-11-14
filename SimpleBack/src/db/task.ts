@@ -7,4 +7,4 @@ const taskSchema = new mongoose.Schema({
     overdueNoticeSent: { type: Boolean, default: false }
 });
 
-export const taskModel = mongoose.model('Task', taskSchema);
+export const Tasks = mongoose.model('Task', taskSchema);

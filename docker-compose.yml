@@ -18,6 +18,8 @@ services:
             - MONGODB_URL=mongodb://root:example@mongo:27017/
             - REDIS_HOST=redis
             - REDIS_PORT=6379
+        depends_on:
+            - rabbitmq
 
     simple-listener:
         container_name: simple-listener
@@ -25,6 +27,8 @@ services:
             dockerfile: SimpleListener/Dockerfile
         ports:
             - 3001:3001
+        depends_on:
+            - rabbitmq
 
     mongo:
         container_name: mongodb
@@ -45,3 +49,7 @@ services:
     redis:
         container_name: redis
         image: redis:7.2.2-alpine
+
+    rabbitmq:
+        container_name: rabbitmq
+        image: rabbitmq:3.12.8-alpine

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { taskModel } from '../db/task.js';
+import { Tasks } from '../db/task.js';
 import { TaskDto } from '../dto/task-dto.js';
 import dotenv from 'dotenv';
 import { connectToDatabaseMiddleware } from '../middleware/db-connection-middleware.js';
@@ -14,13 +14,13 @@ export function taskController() {
     taskController.use(connectToDatabaseMiddleware(mongoUri));
 
     taskController.get('/', async (req, res) => {
-        const allTasks = await taskModel.find({});
+        const allTasks = await Tasks.find({});
         res.json(allTasks);
     });
 
     taskController.post('/', async (req, res) => {
         const taskDto = req.body as TaskDto;
-        const newTask = new taskModel({ ...taskDto });
+        const newTask = new Tasks({ ...taskDto });
         await newTask.save();
         res.send();
     });
