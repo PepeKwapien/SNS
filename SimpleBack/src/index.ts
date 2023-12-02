@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { taskController } from './controller/task-controller.js';
 import { overdueQueue } from './queue/task-queue.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ await overdueQueue().add(undefined, { repeat: { cron: '* * * * *' } });
 const app: Express = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
     res.statusCode = 200;

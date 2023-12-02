@@ -1,10 +1,10 @@
 services:
-    simple-front:
-        container_name: simple-front
-        build:
-            dockerfile: SimpleFront/Dockerfile
-        ports:
-            - 4200:80
+    # simple-front:
+    #     container_name: simple-front
+    #     build:
+    #         dockerfile: SimpleFront/Dockerfile
+    #     ports:
+    #         - 4200:80
 
     simple-back:
         container_name: simple-back

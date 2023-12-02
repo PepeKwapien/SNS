@@ -1,0 +1,15 @@
+<div class="task-list-container">
+    <h1>Your tasks:</h1>
+    <div *ngIf="tasks$ | async as tasks; else notFound">
+        <table *ngIf="tasks.length > 0; else notFound">
+            <tr class="task-list-row" *ngFor="let task of tasks">
+                <td class="task-list-title">{{ task.title }}</td>
+                <td>{{ task.description ?? '-' }}</td>
+                <td>{{ task.dueDate | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <ng-template #notFound>Omegalul</ng-template>
+</div>
+
