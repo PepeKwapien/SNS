@@ -1,5 +1,6 @@
 <div class="task-list-container">
     <h1>Your tasks:</h1>
+    <app-modal-button><app-task-form></app-task-form></app-modal-button>
     <div *ngIf="tasks$ | async as tasks; else notFound">
         <table *ngIf="tasks.length > 0; else notFound">
             <tr class="task-list-row" *ngFor="let task of tasks">

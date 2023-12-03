@@ -1,0 +1,21 @@
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { TaskService } from 'src/app/services/task.service';
+
+@Component({
+    selector: 'app-task-form',
+    templateUrl: './task-form.component.html',
+    styleUrls: ['./task-form.component.scss']
+})
+export class TaskFormComponent {
+    public formGroup: FormGroup;
+
+    constructor(private readonly _taskService: TaskService) {
+        this.formGroup = this._taskService.formGroup;
+    }
+
+    public submit() {
+        this._taskService.submit().subscribe({ next: () => {} });
+    }
+}
+

@@ -1,0 +1,6 @@
+<button (click)="openDialog()">Add task</button>
+<dialog #dialog (click)="closeOutsideDialog($event)">
+    <button (click)="closeDialog()">Close</button>
+    <ng-content></ng-content>
+</dialog>
+
