@@ -8,5 +8,5 @@
 
 .app-task-list-container {
     width: clamp(40%, 500px, 500px);
-    height: clamp(40%, 350px, 450px);
+    min-height: 40%;
 }

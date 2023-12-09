@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError, tap } from 'rxjs';
+import { Observable, Subject, catchError, tap } from 'rxjs';
 import { ITask } from '../interfaces/task.interface';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class TaskService {
     private _formGroup: FormGroup;
+    private _taskAdded$: Subject<void>;
 
     constructor(private readonly _http: HttpClient, private readonly _formMaker: FormBuilder) {
         this._formGroup = this._formMaker.group({
@@ -17,10 +18,16 @@ export class TaskService {
             description: [''],
             dueDate: [new Date(), Validators.required]
         });
+
+        this._taskAdded$ = new Subject();
     }
 
     public get formGroup(): FormGroup {
         return this._formGroup;
+    }
+
+    public get taskAdded$(): Subject<void> {
+        return this._taskAdded$;
     }
 
     public getTasks(): Observable<ITask[]> {
@@ -38,7 +45,8 @@ export class TaskService {
                 console.log(`There was error: ${error}`);
                 throw error;
             }),
-            tap(() => this.clearForm())
+            tap(() => this.clearForm()),
+            tap(() => this._taskAdded$.next())
         );
 
         return result;
