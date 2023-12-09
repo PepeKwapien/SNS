@@ -1,6 +1,10 @@
-<button (click)="openDialog()">Add task</button>
-<dialog #dialog (click)="closeOutsideDialog($event)">
-    <button (click)="closeDialog()">Close</button>
+<div class="modal-button-container">
+    <button class="sns-button" (click)="openDialog()">
+        <span class="modal-button-special-character">+</span> <span class="modal-button-action-name">Add task</span>
+    </button>
+</div>
+<dialog class="modal-button-dialog" #dialog (click)="closeOutsideDialog($event)">
+    <button class="modal-button-close-button" (click)="closeDialog()"><div class="close-icon"></div></button>
     <ng-content></ng-content>
 </dialog>
 

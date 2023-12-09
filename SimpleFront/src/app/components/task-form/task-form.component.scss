@@ -1,0 +1,20 @@
+.task-form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input {
+    font-size: 1.2rem;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+input.ng-touched.ng-invalid,
+form.ng-submitted input.ng-invalid {
+    border-color: red;
+}
+
+label + input {
+    margin-bottom: 1em;
+}

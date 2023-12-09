@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError } from 'rxjs';
+import { EMPTY, Observable, catchError, tap } from 'rxjs';
 import { ITask } from '../interfaces/task.interface';
 import { environment } from 'src/environments/environment';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,11 @@ export class TaskService {
     private _formGroup: FormGroup;
 
     constructor(private readonly _http: HttpClient, private readonly _formMaker: FormBuilder) {
-        this._formGroup = this._formMaker.group({ title: [''], description: [''], dueDate: [new Date()] });
+        this._formGroup = this._formMaker.group({
+            title: ['', Validators.required],
+            description: [''],
+            dueDate: [new Date(), Validators.required]
+        });
     }
 
     public get formGroup(): FormGroup {
@@ -29,12 +33,21 @@ export class TaskService {
     }
 
     public submit(): Observable<void> {
-        return this._http.post<void>(environment.backend, this._formGroup.value).pipe(
+        const result = this._http.post<void>(environment.backend, this._formGroup.value).pipe(
             catchError((error) => {
                 console.log(`There was error: ${error}`);
-                return EMPTY;
-            })
+                throw error;
+            }),
+            tap(() => this.clearForm())
         );
+
+        return result;
+    }
+
+    public clearForm(): void {
+        const form = document.getElementById('taskFormGroup');
+        form?.classList.remove('ng-submitted');
+        this._formGroup.reset();
     }
 }
 

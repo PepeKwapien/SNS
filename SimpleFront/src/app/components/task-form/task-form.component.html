@@ -1,7 +1,10 @@
-<form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <input formControlName="title" type="text" />
-    <input formControlName="description" type="text-area" />
-    <input formControlName="dueDate" type="datetime-local" />
-    <button type="submit">Create</button>
+<form id="taskFormGroup" class="task-form-group" [formGroup]="formGroup" (ngSubmit)="submit()">
+    <label for="title">Title</label>
+    <input #title formControlName="title" type="text" />
+    <label for="description">Description</label>
+    <input #description formControlName="description" type="text-area" />
+    <label for="dueDate">Due date</label>
+    <input #dueDate formControlName="dueDate" type="datetime-local" />
+    <button class="sns-button" type="submit">Create</button>
 </form>
 

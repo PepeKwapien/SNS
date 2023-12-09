@@ -16,5 +16,9 @@ export class TaskListComponent implements OnInit {
     ngOnInit() {
         this.tasks$ = this._taskService.getTasks();
     }
+
+    public clearForm() {
+        this._taskService.clearForm();
+    }
 }
 

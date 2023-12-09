@@ -16,8 +16,16 @@ export class TaskFormComponent {
     }
 
     public submit() {
-        this._taskService.submit().subscribe({ next: () => {} });
-        this._modalService.closeDialog();
+        if (!this.formGroup.valid) {
+            alert('Form invalid!');
+            return;
+        }
+        this._taskService.submit().subscribe({
+            next: () => {
+                this._modalService.closeDialog();
+            },
+            error: (error) => alert(error.message)
+        });
     }
 }
 

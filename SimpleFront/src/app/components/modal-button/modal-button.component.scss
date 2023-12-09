@@ -1,0 +1,79 @@
+p {
+    margin: 0;
+}
+
+::backdrop {
+    background-color: hsla(224, 98%, 63%, 0.329);
+}
+
+.modal-button-dialog {
+    opacity: 0;
+    filter: blur(10px);
+    width: clamp(40%, 500px, 500px);
+    transition: 0.5s;
+    border: 1px black solid;
+    border-radius: 25px;
+    padding: 2em 4em;
+}
+
+.modal-button-dialog[open] {
+    opacity: 1;
+    filter: unset;
+}
+
+.modal-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.modal-button-special-character {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.close-icon {
+    position: relative;
+    background-color: inherit;
+    height: 1.5em;
+    width: 1.5em;
+}
+
+@mixin close-icon-part($positive-degrees) {
+    content: '';
+    position: absolute;
+    height: 0.3em;
+    width: 100%;
+    top: 43%;
+    @if $positive-degrees > 0 {
+        transform: rotate(45deg);
+    } @else {
+        transform: rotate(-45deg);
+    }
+    left: -1%;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.close-icon::after {
+    @include close-icon-part(1);
+}
+
+.close-icon::before {
+    @include close-icon-part(-1);
+}
+
+.modal-button-close-button {
+    position: relative;
+    left: 95%;
+    top: -0.5em;
+    background-color: inherit;
+    border: unset;
+    transition: 0.2s;
+}
+
+.modal-button-close-button:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}

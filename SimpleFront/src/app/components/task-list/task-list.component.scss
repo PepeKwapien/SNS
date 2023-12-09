@@ -1,15 +1,11 @@
 .task-list-container {
-    min-width: 100%;
-    width: fit-content;
-    min-height: 100%;
-    height: fit-content;
     border: 1px black solid;
     border-radius: 25px;
-    padding: 2rem;
-}
-
-h1 {
-    text-align: center;
+    padding: 2em 4em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
 }
 
 .task-list-row {
@@ -18,4 +14,17 @@ h1 {
 
 .task-list-title {
     width: 15%;
+}
+
+.task-list-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-list-not-found {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
 }

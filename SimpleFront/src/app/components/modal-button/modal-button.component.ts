@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 
@@ -8,11 +8,13 @@ import { ModalService } from 'src/app/services/modal.service';
     styleUrls: ['./modal-button.component.scss']
 })
 export class ModalButtonComponent implements OnDestroy {
+    @Output() closeDialogEvent: EventEmitter<void>;
     @ViewChild('dialog') dialogElement!: ElementRef<HTMLDialogElement>;
 
     private _subscription: Subscription;
 
     constructor(private readonly _modalService: ModalService) {
+        this.closeDialogEvent = new EventEmitter();
         this._subscription = this._modalService.closeDialogEventEmitter.subscribe({ next: () => this.closeDialog() });
     }
 
@@ -33,11 +35,7 @@ export class ModalButtonComponent implements OnDestroy {
     }
 
     public closeDialog() {
-        this.dialogElement.nativeElement.close();
-    }
-
-    public closeDialogEvent() {
-        console.log('ayo');
+        this.closeDialogEvent.emit();
         this.dialogElement.nativeElement.close();
     }
 

@@ -1,12 +1,12 @@
 .root-container {
     display: flex;
-    min-height: 100%;
-    height: fit-content;
+    height: 100%;
     width: 100%;
     justify-content: center;
+    align-items: center;
 }
 
-app-task-list {
-    margin: 3em 0;
-    max-width: 50%;
+.app-task-list-container {
+    width: clamp(40%, 500px, 500px);
+    height: clamp(40%, 350px, 450px);
 }

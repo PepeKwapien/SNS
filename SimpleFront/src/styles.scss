@@ -8,3 +8,26 @@ body {
     height: 100%;
 }
 
+body {
+    background-color: hsla(224, 100%, 78%, 0.329);
+}
+
+.sns-button {
+    background-color: hsl(271, 100%, 50%);
+    border: 0px gray solid;
+    color: white;
+    border-radius: 20px;
+    padding: 0.4em 0.6em;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 0.6em;
+    font-size: 1.2rem;
+}
+
+.sns-button:hover {
+    background-color: hsl(271, 99%, 29%);
+}
+

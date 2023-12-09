@@ -1,6 +1,8 @@
 <div class="task-list-container">
-    <h1>Your tasks:</h1>
-    <app-modal-button><app-task-form></app-task-form></app-modal-button>
+    <div class="task-list-header">
+        <h1>Tasks:</h1>
+        <app-modal-button (closeDialogEvent)="clearForm()"><app-task-form></app-task-form></app-modal-button>
+    </div>
     <div *ngIf="tasks$ | async as tasks; else notFound">
         <table *ngIf="tasks.length > 0; else notFound">
             <tr class="task-list-row" *ngFor="let task of tasks">
@@ -11,6 +13,6 @@
         </table>
     </div>
 
-    <ng-template #notFound>Omegalul</ng-template>
+    <ng-template #notFound><div class="task-list-not-found">Nothing to do 😄</div></ng-template>
 </div>
 
