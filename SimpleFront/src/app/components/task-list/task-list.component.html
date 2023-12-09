@@ -12,10 +12,13 @@
                     <th>Due date</th>
                 </tr>
             </thead>
-            <tr class="task-list-row" *ngFor="let task of tasks">
+            <tr
+                class="task-list-row"
+                *ngFor="let task of tasks"
+                [ngClass]="{ 'task-list-task-expired': task.overdueNoticeSent || calculateExpired(task.dueDate) }">
                 <td class="task-list-title">{{ task.title }}</td>
-                <td class="task-list-description">{{ task.description ?? '-' }}</td>
-                <td class="task-list-date">{{ task.dueDate | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td>{{ task.description ?? '-' }}</td>
+                <td>{{ task.dueDate | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
             </tr>
         </table>
     </div>

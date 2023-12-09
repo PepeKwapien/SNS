@@ -24,6 +24,7 @@ async function receiveObject() {
         queue,
         (msg) => {
             if (msg.content) {
+                // Potential to send email etc.
                 const receivedObject = JSON.parse(msg.content.toString());
                 console.log('Object received:', receivedObject);
             }

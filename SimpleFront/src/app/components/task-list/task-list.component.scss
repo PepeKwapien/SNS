@@ -46,3 +46,11 @@ tr + tr {
     align-items: center;
     font-size: 1.2rem;
 }
+
+.task-list-task-expired {
+    color: gray;
+}
+
+.task-list-task-expired > .task-list-title::after {
+    content: ' (expired)';
+}

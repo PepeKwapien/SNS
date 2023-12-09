@@ -28,6 +28,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this._taskService.clearForm();
     }
 
+    public calculateExpired(dueDate: Date): boolean {
+        return new Date(dueDate) < new Date();
+    }
+
     private _getTasks() {
         this.tasks$ = this._taskService.getTasks();
     }
