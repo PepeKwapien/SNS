@@ -5,10 +5,13 @@
 html,
 body {
     margin: 0;
-    height: 100%;
 }
 
 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     background-color: hsla(224, 100%, 78%, 0.329);
 }
 
@@ -30,4 +33,3 @@ body {
 .sns-button:hover {
     background-color: hsl(271, 99%, 29%);
 }
-

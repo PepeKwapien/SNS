@@ -1,25 +1,23 @@
-<div class="task-list-container">
-    <div class="task-list-header">
-        <h1>Tasks:</h1>
-        <app-modal-button (closeDialogEvent)="clearForm()"><app-task-form></app-task-form></app-modal-button>
-    </div>
-    <div *ngIf="tasks$ | async as tasks; else notFound">
-        <table class="task-list-table" *ngIf="tasks.length > 0; else notFound">
-            <thead>
-                <tr class="task-list-row">
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Due date</th>
-                </tr>
-            </thead>
-            <tr class="task-list-row" *ngFor="let task of tasks">
-                <td class="task-list-title">{{ task.title }}</td>
-                <td class="task-list-description">{{ task.description ?? '-' }}</td>
-                <td class="task-list-date">{{ task.dueDate | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
-            </tr>
-        </table>
-    </div>
-
-    <ng-template #notFound><div class="task-list-not-found">Nothing to do 😄</div></ng-template>
+<div class="task-list-header">
+    <h1>Tasks:</h1>
+    <app-modal-button (closeDialogEvent)="clearForm()"><app-task-form></app-task-form></app-modal-button>
 </div>
+<div *ngIf="tasks$ | async as tasks; else notFound">
+    <table class="task-list-table" *ngIf="tasks.length > 0; else notFound">
+        <thead>
+            <tr class="task-list-row">
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due date</th>
+            </tr>
+        </thead>
+        <tr class="task-list-row" *ngFor="let task of tasks">
+            <td class="task-list-title">{{ task.title }}</td>
+            <td class="task-list-description">{{ task.description ?? '-' }}</td>
+            <td class="task-list-date">{{ task.dueDate | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
+        </tr>
+    </table>
+</div>
+
+<ng-template #notFound><div class="task-list-not-found">Nothing to do 😄</div></ng-template>
 
