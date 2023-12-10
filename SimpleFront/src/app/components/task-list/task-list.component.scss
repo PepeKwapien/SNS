@@ -32,6 +32,7 @@ tr + tr {
 .task-list-row {
     display: grid;
     grid-template-columns: 20% 50% 30%;
+    transition: 0.2s;
 }
 
 .task-list-header {

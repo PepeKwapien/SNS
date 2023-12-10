@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ITask } from 'src/app/interfaces/task.interface';
 import { TaskService } from 'src/app/services/task.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
     selector: 'app-task-list',
@@ -12,7 +13,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
     public tasks$: Observable<ITask[]> | undefined;
     private _subscription: Subscription;
 
-    constructor(private readonly _taskService: TaskService) {
+    constructor(private readonly _taskService: TaskService, private readonly _websocketService: WebsocketService) {
         this._subscription = this._taskService.taskAdded$.subscribe({ next: () => this._getTasks() });
     }
 
@@ -22,6 +23,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._getTasks();
+
+        this._websocketService.connect();
+        this._websocketService.onUpdate(() => this._getTasks());
     }
 
     public clearForm() {

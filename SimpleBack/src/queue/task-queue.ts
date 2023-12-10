@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { connectToDatabase } from '../db/db-connection.js';
 import amqp from 'amqplib';
 import { sendObject } from '../broker/broker.js';
+import { getSocketInstance } from '../socket/socket.js';
 
 dotenv.config();
 
@@ -36,7 +37,6 @@ export const overdueQueue: () => Bull.Queue = () => {
         console.log(`Job processed at ${Date.now()}. Found tasks: ${allTasks.length}. Expired tasks: ${expiredTasks.length}`);
 
         for (const expiredTask of expiredTasks) {
-            console.log(`Sending object ${expiredTask} to message broker`);
             await sendObject(expiredTask);
         }
 
@@ -45,6 +45,9 @@ export const overdueQueue: () => Bull.Queue = () => {
             { $set: { overdueNoticeSent: true } }
         );
         console.log(`Updated ${updateResult.modifiedCount} tasks`);
+
+        const socket = getSocketInstance();
+        socket.emit('taskUpdate');
     });
 
     return _overdueQueue;
