@@ -5,9 +5,13 @@ export async function sendObject(object: any) {
     const channel = await connection.createChannel();
 
     const exchangeName = 'overdue_task_exchange';
+    const queueName = 'overdue_task_queue';
     const objectType = 'overdue_task';
 
     await channel.assertExchange(exchangeName, 'direct', { durable: false });
+
+    const { queue } = await channel.assertQueue(queueName);
+    channel.bindQueue(queue, exchangeName, objectType);
 
     const message = JSON.stringify(object);
 

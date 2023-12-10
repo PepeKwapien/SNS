@@ -13,7 +13,7 @@ async function receiveObject() {
 
     await channel.assertExchange(exchangeName, 'direct', { durable: false });
 
-    const { queue } = await channel.assertQueue('overdue_task_queue', { exclusive: true });
+    const { queue } = await channel.assertQueue('overdue_task_queue');
 
     channel.bindQueue(queue, exchangeName, objectType);
 
