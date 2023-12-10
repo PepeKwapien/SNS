@@ -40,7 +40,11 @@ export class TaskService {
     }
 
     public submit(): Observable<void> {
-        const result = this._http.post<void>(environment.backend, this._formGroup.value).pipe(
+        const value: ITask = this._formGroup.value;
+        const currentDate = new Date(value.dueDate);
+        value.dueDate = new Date(currentDate.toISOString());
+
+        const result = this._http.post<void>(environment.backend, value).pipe(
             catchError((error) => {
                 console.log(`There was error: ${error}`);
                 throw error;
